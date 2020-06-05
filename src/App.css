@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  align-items: center;
 }
 
 .App-header {
@@ -14,6 +15,7 @@
 }
 
 .MainBody{
+  text-align: center;
   margin: 50px;
   width: 100rem;
   align-items: center;

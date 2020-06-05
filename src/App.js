@@ -1,21 +1,33 @@
-import React, {Component} from 'react';
+import React, {useState} from 'react';
 import './App.css';
-//import ImportRecipe from './importRecipes'
 import Data from './json/recipes_2.json'
 
-console.log(Data.['type'])
+//console.log('1: ' + Data)
+//console.log(Data.filter(dish => dish.type === 'haupt'))
 
-class App extends Component {
-  state = {
+
+
+const App = props => {
+  const [dataState, setdataState] = useState({
     Data
-  }
+  });
 
 
-  filterNameHandler = () => {
-    console.log('clicked')
-  }
+  const filterNameHandler = value => () => 
+  
+    console.log(Data.filter(dish => dish.type === value))
+    
+    //console.log(Data)
+    //console.log(filterNameHandler.value)
+    //console.log(Data.filter(dish => dish.type === `${filterNameHandler.value}`))
+    
+    setdataState({
+      filteredData = Data.filter(dish => dish.type === value)
+    })  
+  ;
 
-  render() {
+
+
     return (
       <div className="App">
         <header className="App-header">
@@ -23,18 +35,18 @@ class App extends Component {
         </header>
 
         <nav>
-          <button onClick={this.filterNameHandler}>Gericht des tages</button>
-          <button onClick={this.filterNameHandler}>Hauptspeisen</button>
-          <button onClick={this.filterNameHandler}>Vorspeisen</button>
-          <button onClick={this.filterNameHandler}>Dessert</button>
-          <button onClick={this.filterNameHandler}>Drink</button>
+          <button onClick={filterNameHandler('TippDesTages')}>Gericht des tages</button>
+          <button onClick={filterNameHandler('haupt')}>Hauptspeisen</button>
+          <button onClick={filterNameHandler('first')}>Vorspeisen</button>
+          <button onClick={filterNameHandler('dessert')}>Dessert</button>
+          <button onClick={filterNameHandler('haupt')}>Drink</button>
         </nav>
 
         <div className="MainBody">
 
           {/* ADD FILTER FUNCTION TO MAP FROM BUTTONS: {this.state.Data.filter().map(Data  => (...   */}
 
-          {this.state.Data.map(Data  => (
+          {dataState.Data.map(Data  => (
             <div className='Rezept' style={{backgroundImage: `url(${Data.picture})`, 
                                             backgroundSize: 'cover', 
                                             backgroundPosition: 'center',
@@ -50,6 +62,6 @@ class App extends Component {
       </div>
     );
   }
-}
+
 
 export default App;
