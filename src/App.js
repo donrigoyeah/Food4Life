@@ -3,7 +3,7 @@ import './App.css';
 //import ImportRecipe from './importRecipes'
 import Data from './json/recipes_2.json'
 
-console.log(Data)
+console.log(Data.['type'])
 
 class App extends Component {
   state = {
@@ -31,15 +31,19 @@ class App extends Component {
         </nav>
 
         <div className="MainBody">
-          {this.state.Data.map(Data => (
+
+          {/* ADD FILTER FUNCTION TO MAP FROM BUTTONS: {this.state.Data.filter().map(Data  => (...   */}
+
+          {this.state.Data.map(Data  => (
             <div className='Rezept' style={{backgroundImage: `url(${Data.picture})`, 
                                             backgroundSize: 'cover', 
+                                            backgroundPosition: 'center',
                                             width: '20%',
                                             height: '15%',
-                                            margin: '50px',
+                                            margin: '30px',
                                             padding: '50px',
                                             display: 'flex'}}>
-              <h3>{Data.name}</h3>
+              <h3 style={{color: 'white', backgroundColor: 'black', padding: '10px'}}>{Data.name} </h3>
             </div>
           ))}
         </div>     
