@@ -4,21 +4,40 @@ import useModal from './useModal';
 import './App.css';
 import Data from './json/recipes_2.json'
 
-const Recipes = Data
+//const Recipes = Data
 
-console.log(Data[0])
+//console.log(Data[0])
 
 const App = props => {
-  const {isShowing, toggle} = useModal();
-  const [dataState, setdataState] = useState({
+  const {isShowing, toggle} = useShowEdit();        //Setup for creating the ShowEdit Div
+  const [dataState, setdataState] = useState({  //Setup for creating the Recipe Divs
     Data
   });
 
+
+  // ++++++ Create the Show/Edit Div when clicking on recipe
+  const useShowEdit = () => {
+    const [isShowing, setIsShowing] = useState(false); 
+    function toggle() {
+      setIsShowing(!isShowing);
+    } 
+    return {
+      isShowing,
+      toggle,
+    }
+  };
+
+  const ShowEdit = ({ isShowing, hide, value }) => {
+    return React.createElement(
+      'div',
+      {id: `${value}`, className: 'ShowEditDiv'}
+    )
+  }
+
+
+
+
   // +++++ Work in Progress starts here: setdataState not working with filtered list.... ++++++ 
-
-  
-
-
 
   const filterNameHandler = value => () => {
     if (value == 'TippDesTages') {
@@ -75,9 +94,20 @@ const App = props => {
        </nav>
 
         <div className="MainBody">
+
+
+
+
           {/* ++++ ADD FILTER FUNCTION TO MAP FROM BUTTONS: {this.state.Data.filter().map(Data  => (...   */}
           {dataState.Data.map((Data, index)  => (
-            //console.log({Data}),
+            // ++++ Only creates the ShowEdit Div when clicked 
+           
+            <ShowEdit
+            isShowing={isShowing}
+            hide={toggle}
+            value={index}
+            /> 
+           
            /* +++++ <a href={}> a href Element to open the recipe page/window */
            <a onClick={toggle}>
               <div className='Rezept' style={{backgroundImage: `url(${Data.picture})`, 
