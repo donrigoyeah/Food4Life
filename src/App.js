@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {Route, Link} from 'react-router-dom'
 import './App.css';
 import recipeData from './json/recipes_2.json'
 
@@ -8,15 +9,13 @@ const App = props => {
 
 
   const filterNameHandler = value => () => {
+
     if (value == 'TippDesTages') {
+      console.log('Tipp des Tages')
       const hauptRecipes = recipeData.filter(dish => dish.type === 'haupt')
       const firstRecipes = recipeData.filter(dish => dish.type === 'first')
       const dessertRecipes = recipeData.filter(dish => dish.type === 'dessert')
       const drinkRecipes = recipeData.filter(dish => dish.type === 'drink') 
-      
-      //console.log(hauptRecipes.length)
-      //console.log(Math.floor(Math.random() * (hauptRecipes.length+1)))
-      //console.log(hauptRecipes[Math.floor(Math.random() * (hauptRecipes.length))])
 
       const TippDesTages = [];
       TippDesTages.push(hauptRecipes[Math.floor(Math.random() * (hauptRecipes.length))])
@@ -24,20 +23,20 @@ const App = props => {
       TippDesTages.push(dessertRecipes[Math.floor(Math.random() * (dessertRecipes.length))])
       TippDesTages.push(drinkRecipes[Math.floor(Math.random() * (drinkRecipes.length))])
 
-      console.log("TippDesTages", TippDesTages)
-
-      // HOW TO UPDATE STATE ???? 
-      //Data = TippDesTages
       setRecipes(
         TippDesTages
       )
     }
 
-    else {
-    // console log shows right array
+    else if (Number.isInteger(value)){
+      const filteredRecipes = recipeData.filter(recipe => recipe.id === value)
+      setRecipes(
+        filteredRecipes
+      )
+      
+    } else  {
       const filteredRecipes = recipeData.filter(recipe => recipe.type === value)
-      console.log("filteredRecipes",filteredRecipes);
-      // HOW TO UPDATE STATE ???? 
+
     setRecipes(
       filteredRecipes
     );
@@ -63,12 +62,12 @@ console.log("currentRecipes", recipes);
 
         <div className="MainBody">
 
-          {/* ++++ ADD FILTER FUNCTION TO MAP FROM BUTTONS: {this.state.Data.filter().map(Data  => (...   */}
           {recipes.map((recipe, index)  => (
 
              //   ++++  Eric added this "link to" element which is supposed to work as a rout to recipe
              //         <Link to={`/recipes/${recipe.id}`}>
-                <div className='Rezept' style={{backgroundImage: `url(${recipe.picture})`, 
+                <div className='Rezept' onClick={filterNameHandler(recipe.id)}
+                                      style={{backgroundImage: `url(${recipe.picture})`, 
                                               backgroundSize: 'cover', 
                                               backgroundPosition: 'center',
                                               width: '20%',
