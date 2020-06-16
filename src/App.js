@@ -5,6 +5,8 @@ import { Route, Link } from "react-router-dom";
 import "./App.css";
 import recipeData from "./json/recipes_2.json";
 
+
+
 import Modal from "./Modal";
 import useModal from "./useModal";
 
@@ -60,9 +62,7 @@ const App = (props) => {
   // ++++++
   // Form Function for Edit Recipe Page
   // ++++++
-  const formHandler = (event) => {
-    this.setState({ username: event.target.value });
-  };
+
 
   // +++++
   // +++++     Single Page Recipe Display
@@ -75,7 +75,7 @@ const App = (props) => {
         </header>
         <nav>
           <button onClick={filterNameHandler("TippDesTages")}>
-            Gericht des tages
+            Gericht des Tages
           </button>
           <button onClick={filterNameHandler("haupt")}>Hauptspeisen</button>
           <button onClick={filterNameHandler("first")}>Vorspeisen</button>
@@ -114,20 +114,10 @@ const App = (props) => {
               </div>
               <div className="SingleRezeptItem">
                 <p>Zubereitung</p>
-                {/* 
-                ++++ should loop through the decribtion and renders them as paragraphes
-                {recipe.description.map(recipe) => (<p>{recipe.describtion}</p>)} 
-                ++++
-
-                ++++ also does not work
-                {console.log(
-                  recipe.describtion.map((describtion, index) => {
-                    <p key={index}> {describtion}</p>;
-                  })
-                )}
-                ++++
-                */}
-                <p>{recipe.description}</p>
+                
+                {recipe.description.map((description, index) => ( <p key={index}>{recipe.description.index}</p>))}
+               
+                
               </div>
               <div className="SingleRezeptItem">
                 <p>Bewertung:</p>
