@@ -1,5 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import FormRecipe from "./FormRecipe";
+
+// +++++
+// Delete Recipe
+// ++++++
+const Loeschung = (value) => () => {
+  localStorage.removeItem(`${value}`);
+};
+
+// ++++
+// Create Modal for Edit site
+//+++++
 
 const Modal = ({ isShowing, hide, recipe }) =>
   isShowing
@@ -15,16 +27,9 @@ const Modal = ({ isShowing, hide, recipe }) =>
           >
             <div className="modal">
               <div className="modal-header">
-                <button
-                  type="button"
-                  className="modal-close-button"
-                  data-dismiss="modal"
-                  aria-label="Close"
-                  onClick={hide}
-                >
-                  <span aria-hidden="true">&times;</span>
-                </button>
+                <h2>Rezept Bearbeiten</h2>
               </div>
+
               <h3
                 style={{
                   color: "white",
@@ -35,29 +40,69 @@ const Modal = ({ isShowing, hide, recipe }) =>
                 {recipe.name}{" "}
               </h3>
               <div className="SingleRezeptItem">
-                <p>Zutaten:</p>
-                <p>{recipe.ingredients}</p>
+                <h4>Zutaten:</h4>
+                {recipe.ingredients.map((ingredients) => (
+                  <ul>
+                    <li>
+                      <input type="text" value={ingredients} />
+                    </li>
+                  </ul>
+                ))}
+                <ul>
+                  <li>
+                    <input type="text" placeholder="Zutat hinzufügen" />
+                  </li>
+                </ul>
               </div>
               <div className="SingleRezeptItem">
-                <p>Zubereitung</p>
-                <p>{recipe.description}</p>
+                <h4>Zubereitung:</h4>
+                {recipe.description.map((description) => (
+                  <ul>
+                    <li>
+                      <input type="text" value={description} />
+                    </li>
+                  </ul>
+                ))}
+                <ul>
+                  <li>
+                    <input
+                      type="text"
+                      placeholder="Arbeitsschritt hinzufügen"
+                    />
+                  </li>
+                </ul>
               </div>
               <div className="SingleRezeptItem">
-                <p>Bewertung:</p>
-                <p>{recipe.rating}/5</p>
+                <h4>Bewertung:</h4>
+                <input type="text" value={recipe.rating} />
               </div>
               <div className="SingleRezeptItem">
-                <p>Severity:</p>
-                <p>{recipe.severity}/5</p>
+                <h4>Severity:</h4>
+                <input type="text" value={recipe.severity} />
               </div>
               <div className="SingleRezeptItem">
-                <p>Time:</p>
-                <p>{recipe.time}</p>
+                <h4>Zeit:</h4>
+                <input type="text" value={recipe.time} />
               </div>
-              <div className="FormForEdit">
-                <form>
-                  <input type="text" />
-                </form>
+
+              <div style={{ padding: "50px" }}>
+                <button className="button-default">Speichern</button>
+
+                <button
+                  className="button-default"
+                  onClick={Loeschung(`${recipe.name}`)}
+                >
+                  Löschen
+                </button>
+
+                <button
+                  className="button-default"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                  onClick={hide}
+                >
+                  Zurück
+                </button>
               </div>
             </div>
           </div>

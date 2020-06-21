@@ -84,16 +84,6 @@ https://upmostly.com/tutorials/modal-components-react-custom-hooks
   justify-content: flex-end;
 }
 
-.modal-close-button {
-  font-size: 1.4rem;
-  font-weight: 700;
-  line-height: 1;
-  color: #000;
-  opacity: 0.3;
-  cursor: pointer;
-  border: none;
-}
-
 button {
   font-size: 0.9rem;
   font-weight: 700;
