@@ -8,6 +8,8 @@ import recipeData from "./json/recipes_2.json";
 import Modal from "./Modal";
 import useModal from "./useModal";
 
+const recipes = localStorage.getItem("recipes");
+
 console.log(recipeData);
 
 const App = (props) => {
@@ -67,6 +69,9 @@ const App = (props) => {
   // +++++
   // +++++     Single Page Recipe Display
   // +++++
+
+  //const zubereitung_array = recipe.description.split(",");
+
   if (recipes.length === 1) {
     return (
       <div className="App">
@@ -96,57 +101,37 @@ const App = (props) => {
                 {recipe.name}{" "}
               </h3>
               <div className="SingleRezeptItem">
-                <p>Zutaten:</p>
-                {/* 
-                ++++ should loop through the indicrients and renders them as paragraphes
-                {recipe.ingredients.map(recipe) => (<p>{recipe.ingredients}</p>)} 
-                ++++
-
-                ++++ also does not work
-                {console.log(
-                  recipe.ingredients.map((ingredients, index) => {
-                    <p key={index}> {ingredients}</p>;
-                  })
-                )}
-                ++++
-                */}
-                <p>{recipe.ingredients}</p>
+                <h4>Zutaten:</h4>
+                {recipe.ingredients.map((ingredients) => (
+                  <p>{ingredients}</p>
+                ))}
               </div>
               <div className="SingleRezeptItem">
-                <p>Zubereitung</p>
-                {/* 
-                ++++ should loop through the decribtion and renders them as paragraphes
-                {recipe.description.map(recipe) => (<p>{recipe.describtion}</p>)} 
-                ++++
-
-                ++++ also does not work
-                {console.log(
-                  recipe.describtion.map((describtion, index) => {
-                    <p key={index}> {describtion}</p>;
-                  })
-                )}
-                ++++
-                */}
-                <p>{recipe.description}</p>
+                <h4>Zubereitung:</h4>
+                {recipe.description.map((describtion) => (
+                  <p>{describtion}</p>
+                ))}
               </div>
               <div className="SingleRezeptItem">
-                <p>Bewertung:</p>
+                <h4>Bewertung:</h4>
                 <p>{recipe.rating}/5</p>
               </div>
               <div className="SingleRezeptItem">
-                <p>Severity:</p>
+                <h4>Severity:</h4>
                 <p>{recipe.severity}/5</p>
               </div>
               <div className="SingleRezeptItem">
-                <p>Time:</p>
-                <p>{recipe.time}</p>
+                <h4>Zeit:</h4>
+                <p>{recipe.time} Minuten</p>
               </div>
-              <button className="button-default" onClick={toggle}>
-                Edit
+              <button
+                className="button-default"
+                onClick={toggle}
+                style={{ margin: "50px" }}
+              >
+                Rezept Bearbeiten
               </button>
-              {console.log(recipe)}
               <Modal isShowing={isShowing} hide={toggle} recipe={recipe} />
-              <button>Delete</button>
               <div className="SingleRecipeImage">
                 <img src={recipe.picture}></img>
               </div>
